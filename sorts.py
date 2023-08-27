@@ -9,8 +9,8 @@ def firstSort(Directory):
     dirs = ["/Multimedia", "/Texts", "/Images", "/Code", "/Videos", "/Audio", "/Archives", "/Other"]
 
     # giving file extension
-    multimedia = ('.pdf', '.pptx', '.xlsx', '.xls', '.csv')
-    texts = ('.txt', '.docx', '.doc', '.log', '.md', '.odt')
+    multimedia = ('.pdf', '.pptx', '.xlsx', '.xls', '.csv', 'odp')
+    texts = ('.txt', '.docx', '.doc', '.log', '.md', '.odt', '.odg')
     images = ('.jpg', '.jpeg', '.png', '.gif')
     code = ('.py', '.java', '.cpp', '.html', '.css', '.c', '.js&')
     videos = ('.mp4', '.avi', '.mov', '.mkv')
@@ -19,14 +19,12 @@ def firstSort(Directory):
 
     for dir in dirs:
         path = Directory + dir
-        print(path)
         if not os.path.exists(path):
             os.mkdir(path)
 
     # iterating over all files
     for file in os.listdir(Directory):
         file_path = Directory + '/' + file
-        print(file_path)
         if os.path.isfile(file_path):
             if file.endswith(multimedia):
                 moveFile(Directory, dirs[0], file)
@@ -44,5 +42,13 @@ def firstSort(Directory):
                 moveFile(Directory, dirs[6], file)
             else:
                 moveFile(Directory, dirs[-1], file)
+
+    for folder in os.listdir(Directory):
+        folder_path = os.path.join(Directory, folder)
+        print(folder_path)
+        if os.path.isdir(folder_path):
+           items = os.listdir(folder_path)
+           if not items:
+               os.rmdir(folder_path)
 
     return "done!"
